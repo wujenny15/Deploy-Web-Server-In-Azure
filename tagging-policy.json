@@ -1,0 +1,37 @@
+{
+    "properties": {
+      "displayName": "Deny the creation of resources that do not have tags",
+      "policyType": "Custom",
+      "mode": "Indexed",
+      "description": "Enforces existence of a tag. Does not apply to resource groups.",
+      "metadata": {
+        "category": "Tags",
+        "createdBy": "a9b041a9-c826-4c15-ac5c-1b13ce3cd26f",
+        "createdOn": "2020-10-25T05:36:38.5455316Z",
+        "updatedBy": "a9b041a9-c826-4c15-ac5c-1b13ce3cd26f",
+        "updatedOn": "2020-10-27T08:15:55.1329291Z"
+      },
+      "parameters": {
+        "tagName": {
+          "type": "String",
+          "metadata": {
+            "displayName": "environment",
+            "description": "Name of the tag, such as 'environment'"
+          },
+          "defaultValue": "environment"
+        }
+      },
+      "policyRule": {
+        "if": {
+          "field": "[concat('tags[', parameters('tagName'), ']')]",
+          "exists": "false"
+        },
+        "then": {
+          "effect": "deny"
+        }
+      }
+    },
+    "id": "/subscriptions/59ce2236-a139-4c59-91d8-bedbf055dbb9/providers/Microsoft.Authorization/policyDefinitions/dd4f616c-df95-4598-a655-204b28be92cf",
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "dd4f616c-df95-4598-a655-204b28be92cf"
+  }
