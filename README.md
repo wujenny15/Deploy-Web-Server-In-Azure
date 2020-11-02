@@ -28,7 +28,7 @@ Once you've  collected your dependencies, to deploy the scalable web server in A
 
 Packer is a server templating software. It will deploy virtual machines images. After deploying the virtual machines with the help of packer template, make sure to delete the packer images as it does not maintain the state.
 
-- [x] Config Environment Variables
+#### :sparkling_heart: Config Environment Variables
 
 Go to the terminal and export the environment variables like below.
 
@@ -69,7 +69,7 @@ Once you have exported and config the environment variable, use `printenv` to ch
 printenv
 ```
 
-- [x] Deploy the Packer Image
+#### :sparkling_heart: Deploy the Packer Image
 
 ```bash
 packer build server.json
