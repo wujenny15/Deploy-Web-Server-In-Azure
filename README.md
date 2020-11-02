@@ -1,30 +1,30 @@
 # Azure Infrastructure Operations Project: Deploying a scalable IaaS web server in Azure
 
-### Introduction
+## Introduction
 
 For this project, you will write a Packer template and a Terraform template to deploy a customizable, scalable web server in Azure.
 
-### Getting Started
+## Getting Started
 
 1. Clone this repository
 2. Create your infrastructure as code
 3. Create your tagging-policy in Azure
 
-### Dependencies
+## Dependencies
 
 1. Create an [Azure Account](https://portal.azure.com) 
 2. Install the [Azure command line interface](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 3. Install [Packer](https://www.packer.io/downloads)
 4. Install [Terraform](https://www.terraform.io/downloads.html)
 
-### Instructions
+## Instructions
 
 Once you've  collected your dependencies, to deploy the scalable web server in Azure:
 
 1. Deploy the packer image
 2. Deploy the infrastructure with Terraform template
 
-#### 1. Deploy the Packer Image
+### 1. Deploy the Packer Image
 
 Packer is a server templating software. It will deploy virtual machines images. After deploying the virtual machines with the help of packer template, make sure to delete the packer images as it does not maintain the state.
 
@@ -46,7 +46,7 @@ export ARM_SUBSCRIPTION_ID=59ce2236-a139-4c5fakesubsribtionid
 * Click on the overview
 * Copy the Subscription Id
 
-##### Get Client ID
+#### Get Client ID
 
 * Login into your azure account
 * Search and click "Azure Active Directory"
@@ -54,7 +54,7 @@ export ARM_SUBSCRIPTION_ID=59ce2236-a139-4c5fakesubsribtionid
 * Click the application that you own
 * Copy the client ID
 
-##### Get Client Secret
+#### Get Client Secret
 
 * Login into your azure account
 * Search and click "Azure Active Directory"
@@ -75,7 +75,7 @@ printenv
 packer build server.json
 ```
 
-### 2. Create and Update Azure Resouces with Terraform Template
+## 2. Create and Update Azure Resouces with Terraform Template
 
 Now we come to deploy the resources using the Terraform template. One thing worth mentioning is that we have already created the resources group for our PackerImage, so we can't deploy the resource group with the same name. Instead, we need to import the existing resource group and then it will know which resource group to deploy. The similar command will be like:
 
@@ -85,7 +85,7 @@ terraform import azurerm_resource_group.main /subscriptions/{subsriptionId}/reso
 
 > In main.tf: The az availability set, platform_fault_domain_count = 2 has default value 5, so we need to specify it to 2.
 
-#### Deploy the Infrastructure
+### Deploy the Infrastructure
 
 Run the following command to deploy the infrastructure.
 
@@ -100,7 +100,7 @@ Once you have deployed the infrastructure. You can go to the Azure portal to che
 terraform destroy
 ```
 
-#### Specify the Variables
+### Specify the Variables
 
 To use variables for your main.tf, you can specify your variables like below in your vars.tf file.
 
@@ -117,4 +117,4 @@ And in your main.tf, you can call the variables like
 var.environment
 ```
 
-### Output
+## Output
