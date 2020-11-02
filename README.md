@@ -120,7 +120,7 @@ var.environment
 ## Output
 
 If you succeeded in deploying the resources, it will looks like below
-![terraform output](../output.png)
+![terraform output](./output.png)
 
 In the terminal, type `terraform show` to check the resources
 
