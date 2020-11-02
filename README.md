@@ -28,7 +28,7 @@ Once you've  collected your dependencies, to deploy the scalable web server in A
 
 Packer is a server templating software. It will deploy virtual machines images. After deploying the virtual machines with the help of packer template, make sure to delete the packer images as it does not maintain the state.
 
-#### :sparkling_heart: Config Environment Variables
+### :sparkling_heart: Config Environment Variables
 
 Go to the terminal and export the environment variables like below.
 
@@ -69,7 +69,7 @@ Once you have exported and config the environment variable, use `printenv` to ch
 printenv
 ```
 
-#### :sparkling_heart: Deploy the Packer Image
+### :sparkling_heart: Deploy the Packer Image
 
 ```bash
 packer build server.json
@@ -85,7 +85,7 @@ terraform import azurerm_resource_group.main /subscriptions/{subsriptionId}/reso
 
 > In main.tf: The az availability set, platform_fault_domain_count = 2 has default value 5, so we need to specify it to 2.
 
-### Deploy the Infrastructure
+### :sparkling_heart:Deploy the Infrastructure
 
 Run the following command to deploy the infrastructure.
 
@@ -100,7 +100,7 @@ Once you have deployed the infrastructure. You can go to the Azure portal to che
 terraform destroy
 ```
 
-### Specify the Variables
+### :sparkling_heart:Specify the Variables
 
 To use variables for your main.tf, you can specify your variables like below in your vars.tf file.
 
@@ -118,3 +118,18 @@ var.environment
 ```
 
 ## Output
+
+If you succeeded in deploying the resources, it will looks like below
+![terraform output](../output.png)
+
+In the terminal, type `terraform show` to check the resources
+
+```bash
+terraform show
+```
+
+After the deployment, remember to destroy the resources.
+
+``` bash
+terraform destroy
+```
