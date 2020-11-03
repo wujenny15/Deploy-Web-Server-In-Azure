@@ -83,7 +83,7 @@ packer build server.json
 
 #### Output
 
-![packer output](./packeroutput.png)
+![packer output](./images/packeroutput.png)
 
 ## 2. Create and Update Azure Resouces with Terraform Template
 
@@ -119,7 +119,7 @@ Run the following commands to deploy the infrastructure.
 az login
 ```
 
-![az login output](./azloginoutput.png)
+![az login output](./images/azloginoutput.png)
 
 Remember to copy the tenant id and export it to the environment like the last step.
 
@@ -142,9 +142,9 @@ terraform destroy
 ## Output
 
 If you succeeded in deploying the resources, it will looks like below
-![terraform output](./output.png)
+![terraform output](./images/output.png)
 You can also check whether these resources are deployed by looking at the Azure portal. The results will look like this.
-![azure portal](./azureportal.png)
+![azure portal](./images/azureportal.png)
 In the terminal, type `terraform show` to check the resources
 
 ```bash
