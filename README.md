@@ -33,7 +33,7 @@ Once you've  collected your dependencies, to deploy the scalable web server in A
 
 Packer is a server templating software. It will deploy virtual machines images. After deploying the virtual machines with the help of packer template, make sure to delete the packer images as it does not maintain the state.
 
-#### :large_blue_diamond:  Config Environment Variables :large_blue_diamond:
+#### :large_blue_diamond:  Config Environment Variables :large_blue_diamond: 
 
 Go to the terminal and export the environment variables like below.
 
@@ -43,7 +43,7 @@ export ARM_CLIENT_SECRET=6GNB5c5p_5H.-odi_zffakesecret
 export ARM_SUBSCRIPTION_ID=59ce2236-a139-4c5fakesubsribtionid
 ```
 
-#### Get Subscription ID
+#### :heavy_check_mark: Get Subscription ID
 
 * Login into your azure account
 * Search and click "Subscriptions"
@@ -51,7 +51,7 @@ export ARM_SUBSCRIPTION_ID=59ce2236-a139-4c5fakesubsribtionid
 * Click on the overview
 * Copy the Subscription Id
 
-#### Get Client ID
+#### :heavy_check_mark: Get Client ID
 
 * Login into your azure account
 * Search and click "Azure Active Directory"
@@ -59,7 +59,7 @@ export ARM_SUBSCRIPTION_ID=59ce2236-a139-4c5fakesubsribtionid
 * Click the application that you own
 * Copy the client ID
 
-#### Get Client Secret
+#### :heavy_check_mark: Get Client Secret
 
 * Login into your azure account
 * Search and click "Azure Active Directory"
@@ -77,17 +77,16 @@ printenv
 #### :large_blue_diamond:  Deploy the Packer Image :large_blue_diamond:  
 
 Run the following command to deploy the packer image.
+
 ```bash
 packer build server.json
 ```
-
-#### Output
 
 ![packer output](./images/packeroutput.png)
 
 ## :pushpin:Create and Update Azure Resouces with Terraform Template
 
-#### :large_blue_diamond:Specify the Variables :large_blue_diamond:
+#### :large_blue_diamond: Specify the Variables :large_blue_diamond:
 
 To use variables for your main.tf, you can specify your variables like below in your vars.tf file.
 
@@ -104,7 +103,7 @@ And in your main.tf, you can call the variables like
 var.environment
 ```
 
-#### :large_blue_diamond: Deploy the Infrastructure Using Terraform :sparkling_heart
+#### :large_blue_diamond: Deploy the Infrastructure Using Terraform :large_blue_diamond:
 
 Now we come to deploy the resources using the Terraform template. One thing worth mentioning is that we have already created the resources group for our PackerImage, so we can't deploy the resource group with the same name. Instead, we need to import the existing resource group and then it will know which resource group to deploy. The similar command will be like:
 
@@ -142,9 +141,13 @@ terraform destroy
 ## Output
 
 If you succeeded in deploying the resources, it will looks like below
+
 ![terraform output](./images/output.png)
+
 You can also check whether these resources are deployed by looking at the Azure portal. The results will look like this.
+
 ![azure portal](./images/azureportal.png)
+
 In the terminal, type `terraform show` to check the resources
 
 ```bash
