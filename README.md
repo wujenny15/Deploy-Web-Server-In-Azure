@@ -2,13 +2,18 @@
 
 ## Introduction
 
-For this project, you will write a Packer template and a Terraform template to deploy a customizable, scalable web server in Azure.
+This project will use a Packer template and a Terraform template to deploy a customizable, scalable web server in Azure.
+
+The infrastructure as code gives us a huge advantage in defining, deploying, updating and destroying our infrastructure. So in order to set up an image which contains our application for repeatable deployments, we will use packer to create the machine images(in JSON format).
+
+Terraform expands on this by not only deploying virtual machines but also storage, networking and security entities across multiple infrastructures, clouds and vendors.
 
 ## Getting Started
 
 1. Clone this repository
 2. Create your infrastructure as code
 3. Create your tagging-policy in Azure
+4. Create the required resource group in Azure
 
 ## Dependencies
 
@@ -69,11 +74,16 @@ Once you have exported and config the environment variable, use `printenv` to ch
 printenv
 ```
 
-### :sparkling_heart: Deploy the Packer Image
+### :sparkling_heart: Deploy the Packer Image :sparkling_heart:  
 
+Run the following command to deploy the packer image.
 ```bash
 packer build server.json
 ```
+
+#### Output
+A similar output will looks like the below image.
+![packer output](./packeroutput.png)
 
 ## 2. Create and Update Azure Resouces with Terraform Template
 
@@ -85,9 +95,23 @@ terraform import azurerm_resource_group.main /subscriptions/{subsriptionId}/reso
 
 > In main.tf: The az availability set, platform_fault_domain_count = 2 has default value 5, so we need to specify it to 2.
 
-### :sparkling_heart:Deploy the Infrastructure
+### :sparkling_heart:Deploy the Infrastructure Using Terraform
 
 Run the following command to deploy the infrastructure.
+
+```bash
+az login
+```
+![az login output](./azloginoutput.png)
+
+copy the tenant id and export it to the environment.
+
+```bash
+terraform plan -out solution.plan
+terraform apply
+```
+output
+![terraform plan -output](./terraformoutput.png)
 
 ```bash
 terraform plan -out solution.plan

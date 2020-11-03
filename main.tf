@@ -1,18 +1,13 @@
-locals {
-   server_names = ["uat","int"]
-}
-
 # Configure the Azure Provider
 provider "azurerm" {
   features {}
 }
 
-# Create a resource group
+# Create or Update a resource group
 resource "azurerm_resource_group" "main" {
   name     = "${var.prefix}-rg"
   location = var.location
 }
-
 
 # Create a availabity set for virtual machines
 resource "azurerm_availability_set" "main" {
@@ -33,15 +28,28 @@ resource "azurerm_network_security_group" "main" {
   resource_group_name = azurerm_resource_group.main.name
 
   security_rule {
-    name                       = "AllowVMAccess"
+    name                       = "AllowVnetInBound"
     description                = "Allow access to other VMs on the subnet"
-    priority                   = 100
+    priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "*"
     source_port_range          = "*"
     destination_port_range     = "*"
     source_address_prefix      = "VirtualNetwork"
+    destination_address_prefix = "VirtualNetwork"
+  }
+
+  security_rule {
+    name                       = "DenyInternetInBound"
+    description                = "Deny all inbound traffic outside of the vnet from the Internet"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Deny"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "Internet"
     destination_address_prefix = "VirtualNetwork"
   }
 
@@ -66,12 +74,12 @@ resource "azurerm_lb" "main" {
   name                = "${var.prefix}-lb"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  
+
   frontend_ip_configuration {
     name                 = "PublicIPAddress"
     public_ip_address_id = azurerm_public_ip.main.id
   }
-  
+
   tags = {
     environment = var.environment
   }
@@ -103,9 +111,9 @@ resource "azurerm_subnet" "main" {
 }
 
 resource "azurerm_network_interface" "main" {
-  count = var.vm_count
+  count = length(var.server_names)
 
-  name                = "${var.prefix}-nic-${local.server_names[count.index]}"
+  name                = "${var.prefix}-nic-${var.server_names[count.index]}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
 
@@ -121,20 +129,20 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "main" {
-  count = var.vm_count
+  count = length(var.server_names)
+
   network_interface_id    = azurerm_network_interface.main[count.index].id
   ip_configuration_name   = "testConfiguration"
   backend_address_pool_id = azurerm_lb_backend_address_pool.main.id
 }
 
-
 resource "azurerm_linux_virtual_machine" "main" {
-  count = var.vm_count
+  count = length(var.server_names)
 
-  name                            = "${var.prefix}-vm-${local.server_names[count.index]}"
+  name                            = "${var.prefix}-vm-${var.server_names[count.index]}"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location
-  size                            = "Standard_D2s_v3" 
+  size                            = "Standard_D2s_v3"
   admin_username                  = var.username
   admin_password                  = var.password
   disable_password_authentication = false
@@ -142,13 +150,15 @@ resource "azurerm_linux_virtual_machine" "main" {
     azurerm_network_interface.main[count.index].id
   ]
   availability_set_id = azurerm_availability_set.main.id
+  source_image_id     = var.packerImageId
 
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
-    version   = "latest"
-  }
+  # Uncommment the below if you have provided the source_image_id
+  # source_image_reference {
+  #   publisher = "Canonical"
+  #   offer     = "UbuntuServer"
+  #   sku       = "18.04-LTS"
+  #   version   = "latest"
+  # }
 
   os_disk {
     storage_account_type = "Standard_LRS"
@@ -157,7 +167,7 @@ resource "azurerm_linux_virtual_machine" "main" {
 
   tags = {
     environment = var.environment,
-    name        = local.server_names[count.index]
+    name        = var.server_names[count.index]
   }
 }
 
