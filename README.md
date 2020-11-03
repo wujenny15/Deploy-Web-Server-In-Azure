@@ -29,11 +29,11 @@ Once you've  collected your dependencies, to deploy the scalable web server in A
 1. Deploy the packer image
 2. Deploy the infrastructure with Terraform template
 
-### 1. Deploy the Packer Image
+### :pushpin: Deploy the Packer Image
 
 Packer is a server templating software. It will deploy virtual machines images. After deploying the virtual machines with the help of packer template, make sure to delete the packer images as it does not maintain the state.
 
-#### :sparkling_heart:  Config Environment Variables :sparkling_heart:
+#### :large_blue_diamond:  Config Environment Variables :large_blue_diamond:
 
 Go to the terminal and export the environment variables like below.
 
@@ -74,7 +74,7 @@ Once you have exported and config the environment variable, use `printenv` to ch
 printenv
 ```
 
-#### :sparkling_heart:  Deploy the Packer Image :sparkling_heart:  
+#### :large_blue_diamond:  Deploy the Packer Image :large_blue_diamond:  
 
 Run the following command to deploy the packer image.
 ```bash
@@ -85,9 +85,9 @@ packer build server.json
 
 ![packer output](./images/packeroutput.png)
 
-## 2. Create and Update Azure Resouces with Terraform Template
+## :pushpin:Create and Update Azure Resouces with Terraform Template
 
-#### :sparkling_heart:Specify the Variables :sparkling_heart:
+#### :large_blue_diamond:Specify the Variables :large_blue_diamond:
 
 To use variables for your main.tf, you can specify your variables like below in your vars.tf file.
 
@@ -104,7 +104,7 @@ And in your main.tf, you can call the variables like
 var.environment
 ```
 
-#### :sparkling_heart: Deploy the Infrastructure Using Terraform :sparkling_heart
+#### :large_blue_diamond: Deploy the Infrastructure Using Terraform :sparkling_heart
 
 Now we come to deploy the resources using the Terraform template. One thing worth mentioning is that we have already created the resources group for our PackerImage, so we can't deploy the resource group with the same name. Instead, we need to import the existing resource group and then it will know which resource group to deploy. The similar command will be like:
 
@@ -148,7 +148,7 @@ You can also check whether these resources are deployed by looking at the Azure 
 In the terminal, type `terraform show` to check the resources
 
 ```bash
-terraform shows
+terraform show
 ```
 
 After the deployment, remember to destroy the resources.
