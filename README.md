@@ -120,7 +120,7 @@ az login
 
 ![az login output](./images/azloginoutput.png)
 
-Remember to copy the tenant id and export it to the environment like the last step.
+Remember to copy the tenant id and export it to the environment like the last step. Then run the following to deploy the terraform template.
 
 ```bash
 terraform plan -out solution.plan
