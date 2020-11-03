@@ -145,11 +145,12 @@ var.environment
 
 If you succeeded in deploying the resources, it will looks like below
 ![terraform output](./output.png)
-
+You can also check whether these resources are deployed by looking at the Azure portal. The results will look like this.
+![azure portal](./azureportal.png)
 In the terminal, type `terraform show` to check the resources
 
 ```bash
-terraform show
+terraform shows
 ```
 
 After the deployment, remember to destroy the resources.
