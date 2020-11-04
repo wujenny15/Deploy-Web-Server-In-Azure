@@ -14,11 +14,11 @@ variable "location" {
 }
 
 variable "username"{
-  default = "Your username"
+  default = "username"
 }
 
 variable "password"{
-  default= "your password"
+  default= "password"
 }
 
 variable "server_names"{
