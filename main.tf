@@ -111,7 +111,7 @@ resource "azurerm_subnet" "main" {
 }
 
 resource "azurerm_network_interface" "main" {
-  count = var.count
+  count = var.vm_count
 
   name                = "${var.prefix}-nic-${var.server_names[count.index]}"
   resource_group_name = azurerm_resource_group.main.name
@@ -129,7 +129,7 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "main" {
-  count = var.count
+  count = var.vm_count
 
   network_interface_id    = azurerm_network_interface.main[count.index].id
   ip_configuration_name   = "testConfiguration"
@@ -137,7 +137,7 @@ resource "azurerm_network_interface_backend_address_pool_association" "main" {
 }
 
 resource "azurerm_linux_virtual_machine" "main" {
-  count = var.count
+  count = var.vm_count
 
   name                            = "${var.prefix}-vm-${var.server_names[count.index]}"
   resource_group_name             = azurerm_resource_group.main.name

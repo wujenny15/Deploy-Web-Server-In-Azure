@@ -30,6 +30,6 @@ variable "packerImageId"{
   default = "/subscriptions/59ce2236-a139-4c59-91d8-bedbf055dbb9/resourceGroups/udacity-rg/providers/Microsoft.Compute/images/PackerImage"
 }
 
-variable "count"{
+variable "vm_count"{
   default = "2"
 }
